@@ -533,7 +533,11 @@ angular.module('ui.bootstrap.tooltip', ['ui.bootstrap.position', 'ui.bootstrap.s
                     element.on(trigger, toggleTooltipBind);
                   } else if (trigger) {
                     element.on(trigger, showTooltipBind);
-                    element.on(triggers.hide[idx], hideTooltipBind);
+                    if (triggers.hide[idx] === 'outsideClick') {
+                      $document.on('click', bodyHideTooltipBind);
+                    } else {
+                      element.on(triggers.hide[idx], hideTooltipBind);
+                    }
                   }
 
                   element.on('keypress', function(e) {
